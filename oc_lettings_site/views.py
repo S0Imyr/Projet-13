@@ -13,4 +13,3 @@ def index(request):
     non finibus neque cursus id.
     """
     return render(request, 'index.html')
-
