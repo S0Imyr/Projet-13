@@ -1,4 +1,5 @@
 from django.test import Client
+from django.urls.base import reverse
 
 
 class Test:
@@ -9,4 +10,6 @@ class Test:
         pass
 
     def test_index(self):
-        pass
+        uri = reverse('index')
+        response = self.client.get(uri)
+        assert response.status_code == 200
