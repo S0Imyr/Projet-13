@@ -26,4 +26,3 @@ class Test:
         uri = reverse('profile', args=[self.profile.user.username])
         response = self.client.get(uri)
         assert response.status_code == 200
-
