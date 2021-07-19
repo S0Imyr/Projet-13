@@ -1,4 +1,5 @@
-from django.test import TestCase, Client
+from django.test import Client
+
 
 class Test:
     def setup_method(self):
@@ -7,12 +8,5 @@ class Test:
     def teardown_method(self):
         pass
 
-    def test_letting_index(self):
+    def test_index(self):
         pass
-    
-    def test_letting(self):
-        pass
-
-
-
-
