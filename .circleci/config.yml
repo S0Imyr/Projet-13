@@ -34,14 +34,14 @@ jobs:
       - setup_remote_docker
       - docker/check
       - docker/build:
-          image: $HUB_NAME/oc_lettings
-          extra_build_args: "-t $HUB_NAME/oc_lettings"
+          image: $HUB_NAME/oclettings
+          extra_build_args: "-t $HUB_NAME/oclettings"
           tag: $CIRCLE_SHA1             
       - docker/push:
-          image: $HUB_NAME/oc_lettings
+          image: $HUB_NAME/oclettings
           tag: "latest"
       - docker/push:
-          image: $HUB_NAME/oc_lettings
+          image: $HUB_NAME/oclettings
           tag: "$CIRCLE_SHA1"
 
 workflows:
