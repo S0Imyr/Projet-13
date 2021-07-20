@@ -49,5 +49,5 @@ workflows:
     jobs:
       - build_and_test
       - build_push_to_docker_hub:
-        - requires:
-          - build_and_test
+          requires:
+            - build_and_test
