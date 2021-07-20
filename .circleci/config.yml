@@ -34,14 +34,15 @@ jobs:
       - setup_remote_docker
       - docker/check
       - docker/build:
-          image: $HUB_NAME/oclettings
-          tag: $CIRCLE_SHA1             
+          image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
+          extra_build_args: "-t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME"
+          tag: 0.1.<< pipeline.number >>             
       - docker/push:
-          image: $HUB_NAME/oclettings
+          image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
           tag: "latest"
       - docker/push:
-          image: $HUB_NAME/oclettings
-          tag: "$CIRCLE_SHA1"
+          image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
+          tag: "0.1.<< pipeline.number >>"
 
 workflows:
   test_build_deploy:
