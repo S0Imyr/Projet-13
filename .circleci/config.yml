@@ -35,7 +35,7 @@ jobs:
       - docker/check
       - docker/build:
           image: $DOCKER_LOGIN/$PROJECT_NAME
-          extra_build_args: "-t $DOCKER_LOGIN/$PROJECT_REPONAME"
+          extra_build_args: "-t $DOCKER_LOGIN/$PROJECT_NAME"
           tag: $CIRCLE_SHA1             
       - docker/push:
           image: $DOCKER_LOGIN/$PROJECT_NAME
