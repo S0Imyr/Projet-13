@@ -61,7 +61,10 @@ TEMPLATES = [
 
 STATIC_URL = "/static/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 WSGI_APPLICATION = 'oc_lettings_site.wsgi.application'
 
