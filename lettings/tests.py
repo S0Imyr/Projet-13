@@ -6,6 +6,9 @@ import pytest
 from .models import Address, Letting
 
 
+LETTINGS_INDEX_TITLE = b'Lettings'
+
+
 class Test:
     def setup_method(self):
         self.client = Client()
@@ -24,10 +27,12 @@ class Test:
         uri = reverse('lettings_index')
         response = self.client.get(uri)
         assert response.status_code == 200
+        assert LETTINGS_INDEX_TITLE in response.content
 
     @pytest.mark.django_db
     def test_letting(self):
-        letting_id = 1
+        letting_id = self.letting.id
         uri = reverse('letting', args=[letting_id])
         response = self.client.get(uri)
         assert response.status_code == 200
+        assert str.encode(self.letting.title) in response.content

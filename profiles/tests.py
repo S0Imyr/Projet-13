@@ -6,6 +6,9 @@ import pytest
 from .models import User, Profile
 
 
+PROFILES_INDEX_TITLE = b'Profiles'
+
+
 class Test:
     def setup_method(self):
         self.client = Client()
@@ -20,9 +23,11 @@ class Test:
         uri = reverse('profiles_index')
         response = self.client.get(uri)
         assert response.status_code == 200
+        assert PROFILES_INDEX_TITLE in response.content
 
     @pytest.mark.django_db
-    def test_profiles(self):
+    def test_profile(self):
         uri = reverse('profile', args=[self.profile.user.username])
         response = self.client.get(uri)
         assert response.status_code == 200
+        assert str.encode(self.profile.user.username) in response.content
