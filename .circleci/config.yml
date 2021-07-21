@@ -44,6 +44,22 @@ jobs:
           image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
           tag: $CIRCLE_SHA1
 
+  deploy_to_heroku:
+      machine: true
+      steps:
+        - checkout
+        - run:
+            name: Build and push Docker image to Heroku
+            command: |
+              sudo curl https://cli-assets.heroku.com/install.sh | sh
+              HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+              HEROKU_API_KEY=${HEROKU_TOKEN} heroku config:set DEBUG=False -a ${HEROKU_APP_NAME}
+              HEROKU_API_KEY=${HEROKU_TOKEN} heroku config:set PORT=8000 -a ${HEROKU_APP_NAME}
+              HEROKU_API_KEY=${HEROKU_TOKEN} heroku config:set SECRET_KEY=${DJANGO_SECRET_KEY} -a ${HEROKU_APP_NAME}
+
+              HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a python-django-starter web
+              HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a python-django-starter web
+
 workflows:
   test_build_deploy:
     jobs:
@@ -51,3 +67,12 @@ workflows:
       - build_push_to_docker_hub:
           requires:
             - build_and_test
+          filters:
+            branches:
+              only: master
+      - deploy_to_heroku:
+          requires:
+            - build_push_to_docker_hub
+          filters:
+            branches:
+              only: master
