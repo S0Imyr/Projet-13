@@ -20,14 +20,14 @@ class Test:
 
     @pytest.mark.django_db
     def test_profiles_index(self):
-        uri = reverse('profiles_index')
+        uri = reverse('profiles:index')
         response = self.client.get(uri)
         assert response.status_code == 200
         assert PROFILES_INDEX_TITLE in response.content
 
     @pytest.mark.django_db
     def test_profile(self):
-        uri = reverse('profile', args=[self.profile.user.username])
+        uri = reverse('profiles:profile', args=[self.profile.user.username])
         response = self.client.get(uri)
         assert response.status_code == 200
         assert str.encode(self.profile.user.username) in response.content
