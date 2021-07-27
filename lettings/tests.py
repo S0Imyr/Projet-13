@@ -24,7 +24,7 @@ class Test:
 
     @pytest.mark.django_db
     def test_letting_index(self):
-        uri = reverse('lettings_index')
+        uri = reverse('lettings:lettings_index')
         response = self.client.get(uri)
         assert response.status_code == 200
         assert LETTINGS_INDEX_TITLE in response.content
